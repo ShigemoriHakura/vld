@@ -672,7 +672,7 @@ void vld_dump_op(int nr, zend_op * op_ptr, unsigned int base_address, int notdea
 {
 	static unsigned int last_lineno = (unsigned int) -1;
 	int print_sep = 0, len;
-	const char *fetch_type = "";
+	const char *fetch_type = "None";
 	unsigned int flags, op1_type, op2_type, res_type;
 	const zend_op op = op_ptr[nr];
 
@@ -805,21 +805,21 @@ void vld_dump_op(int nr, zend_op * op_ptr, unsigned int base_address, int notdea
 
 	if (op.opcode >= NUM_KNOWN_OPCODES) {
 		if (VLD_G(format)) {
-			vld_printf(stderr, "%5d %s %c %c %c %c %s <%03d>%-23s %s %-14s ", nr, VLD_G(col_sep), notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', VLD_G(col_sep), op.opcode, VLD_G(col_sep), fetch_type);
+			vld_printf(stderr, "%5d %s %c %c %c %c %s <%03d>%-23s %s %-14s ", nr, VLD_G(col_sep), notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', VLD_G(col_sep), op.opcode, VLD_G(col_sep), fetch_type);
 		} else {
-			vld_printf(stderr, "%5d%c %c %c %c <%03d>%-23s %-14s ", nr, notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', op.opcode, "", fetch_type);
+			vld_printf(stderr, "%5d%c %c %c %c <%03d>%-23s %-14s ", nr, notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', op.opcode, "", fetch_type);
 		}
 	} else if (VLD_G(verbosity) >= 3) {
 		if (VLD_G(format)) {
-			vld_printf(stderr, "%5d %s %c %c %c %c %s %-28s %s %-14s ", nr, VLD_G(col_sep), notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', VLD_G(col_sep), opcodes[op.opcode].name, VLD_G(col_sep), fetch_type);
+			vld_printf(stderr, "%5d %s %c %c %c %c %s %-28s %s %-14s ", nr, VLD_G(col_sep), notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', VLD_G(col_sep), opcodes[op.opcode].name, VLD_G(col_sep), fetch_type);
 		} else {
-			vld_printf(stderr, "%5d%c %c %c %c <%3d> %-28s %-14s ", nr, notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', op.opcode, opcodes[op.opcode].name, fetch_type);
+			vld_printf(stderr, "%5d%c %c %c %c <%3d> %-28s %-14s ", nr, notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', op.opcode, opcodes[op.opcode].name, fetch_type);
 		}
 	} else {
 		if (VLD_G(format)) {
-			vld_printf(stderr, "%5d %s %c %c %c %c %s %-28s %s %-14s ", nr, VLD_G(col_sep), notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', VLD_G(col_sep), opcodes[op.opcode].name, VLD_G(col_sep), fetch_type);
+			vld_printf(stderr, "%5d %s %c %c %c %c %s %-28s %s %-14s ", nr, VLD_G(col_sep), notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', VLD_G(col_sep), opcodes[op.opcode].name, VLD_G(col_sep), fetch_type);
 		} else {
-			vld_printf(stderr, "%5d%c %c %c %c %-28s %-14s ", nr, notdead ? ' ' : '*', entry ? 'E' : ' ', start ? '>' : ' ', end ? '>' : ' ', opcodes[op.opcode].name, fetch_type);
+			vld_printf(stderr, "%5d%c %c %c %c %-28s %-14s ", nr, notdead ? '-' : '*', entry ? 'E' : 'N', start ? '>' : 'x', end ? '>' : 'x', opcodes[op.opcode].name, fetch_type);
 		}
 	}
 
